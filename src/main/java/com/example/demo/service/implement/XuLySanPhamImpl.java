@@ -54,13 +54,13 @@ public class XuLySanPhamImpl implements XuLySanPham {
     }
 
     @Override
-    public List<ProductRequest> getProductRequestbyname(String name) {
-        List<ProductRequest> listProductgetbyname = new ArrayList<>();
+    public List<ProductRequest> getProductRequestbyloai(String loai) {
+        List<ProductRequest> listProductgetbyloai  = new ArrayList<>();
         int number = 0;
 
         for (ProductRequest productRequest : listProduct) {
-            if (productRequest.getName().equals(name)) {
-                listProductgetbyname.add(productRequest);
+            if (productRequest.getLoai().equals(loai)) {
+                listProductgetbyloai.add(productRequest);
                 number++;
             }
 
@@ -68,7 +68,7 @@ public class XuLySanPhamImpl implements XuLySanPham {
         if(number == 0)
             return null;
         else
-            return listProductgetbyname;
+            return listProductgetbyloai;
 
     }
 

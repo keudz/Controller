@@ -89,8 +89,8 @@ public class Controller {
         @Autowired
         public XuLySanPham getsp;
         @PostMapping(Urlconstant1.API_GET_PRODUCT_BY_NAME)
-        public List<ProductRequest> getspbyname (@RequestParam String name){
-            return getsp.getProductRequestbyname(name);
+        public List<ProductRequest> getspbyloai (@RequestParam String loai){
+            return getsp.getProductRequestbyloai(loai);
         }
     }
 }

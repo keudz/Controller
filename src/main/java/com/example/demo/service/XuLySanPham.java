@@ -14,7 +14,7 @@ public interface XuLySanPham {
 
    public ProductRequest getProductRequest(String name);
 
-   public List<ProductRequest> getProductRequestbyname( String name );
+   public List<ProductRequest> getProductRequestbyloai( String loai );
 
 
 }
