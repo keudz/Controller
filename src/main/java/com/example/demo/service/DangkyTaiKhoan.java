@@ -1,0 +1,7 @@
+package com.example.demo.service;
+
+import com.example.demo.dto.request.ThanhPhanEmail;
+
+public interface DangkyTaiKhoan {
+     String dangKy(ThanhPhanEmail thanhPhan);
+}
