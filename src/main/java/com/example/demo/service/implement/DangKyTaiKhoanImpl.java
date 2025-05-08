@@ -3,24 +3,42 @@ package com.example.demo.service.implement;
 import com.example.demo.dto.request.ThanhPhanEmail;
 import com.example.demo.dto.request.response.ThanhPhanNhayCam;
 import com.example.demo.service.DangkyTaiKhoan;
+import com.example.demo.service.ValidService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
+//tạo bean bằng annotation
 @Service
 public class DangKyTaiKhoanImpl implements DangkyTaiKhoan {
 
-    public static Map<String, String> danhsach = new HashMap<>();
+    @Autowired
+    private ValidService validService;
 
-    public void create (ThanhPhanEmail thanhPhan){
-    danhsach.put(thanhPhan.getEmail(), thanhPhan.getPassword());
-    }
+    public static List<ThanhPhanEmail> danhSachEmail = new ArrayList<>();
+
+
+//    @Override
+//    public  ThanhPhanEmail adduser (ThanhPhanEmail thanhPhanEmail){
+//        ThanhPhanEmail user = new ThanhPhanEmail(thanhPhanEmail.getEmail(),thanhPhanEmail.getPassword());
+//        danhSachEmail.add(user);
+//        return null;
+//    }
     @Override
     public String dangKy(ThanhPhanEmail thanhPhan){
-        ThanhPhanNhayCam thanhPhan1 = new ThanhPhanNhayCam();
-        thanhPhan1.setEmail(thanhPhan.getEmail());
-        return  "đăng ký tài khoản thành công --->>>";
+      String error = validService.validRequstDangKy(thanhPhan);
+      if(error != null ){
+          return error;
+      }
+       danhSachEmail.add(thanhPhan);
+      return "bạn đã đăng ký thành công";
+    }
+   @Override
+    public List<ThanhPhanEmail> showaccount (){
+       return danhSachEmail;
     }
 
 }

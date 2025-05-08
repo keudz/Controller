@@ -6,9 +6,9 @@ public class TPQuanTriVien {
     private  String status;
     private String email;
     private String role;
-    private int id;
+    private String id;
 
-    public TPQuanTriVien(String fullname, String password, String status, String email, String role, int id) {
+    public TPQuanTriVien(String fullname, String password, String status, String email, String role, String id) {
         this.fullname = fullname;
         this.password = password;
         this.status = status;
@@ -57,11 +57,11 @@ public class TPQuanTriVien {
         this.role = role;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

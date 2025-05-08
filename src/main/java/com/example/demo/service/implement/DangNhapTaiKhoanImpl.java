@@ -2,28 +2,18 @@ package com.example.demo.service.implement;
 
 import com.example.demo.dto.request.ThanhPhanEmail;
 import com.example.demo.service.DangNhapTaiKhoan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+//sử dụng @Configuration và @Bean
 public class DangNhapTaiKhoanImpl implements DangNhapTaiKhoan {
 
-
+    @Autowired
+    private ValidServiceImpl validService;
 
     @Override
-    public Object dangNhap( ThanhPhanEmail thanhPhan) {
-        String email = thanhPhan.getEmail();
-        String password = thanhPhan.getPassword();
+    public String dangNhap( ThanhPhanEmail thanhPhan) {
 
-
-        if (DangKyTaiKhoanImpl.danhsach.containsKey(email)) {
-
-            if (DangKyTaiKhoanImpl.danhsach.get(email).equals(password)) {
-                return "Đăng nhập thành công!";
-            } else {
-                return "Mật khẩu sai!";
-            }
-        } else {
-            return "Email chưa được đăng ký!";
-        }
+        return validService.validRequstDangNhap(thanhPhan);
     }
 }

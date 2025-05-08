@@ -5,9 +5,11 @@ public class ThanhPhanEmail {
     private String password;
 
 
+
     public ThanhPhanEmail(String email, String password) {
         this.email = email;
         this.password = password;
+
     }
     public String getEmail(){
         return email;
@@ -23,4 +25,6 @@ public class ThanhPhanEmail {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

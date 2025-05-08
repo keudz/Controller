@@ -8,4 +8,5 @@ import java.util.List;
 public interface QuanTriVien {
     public List<TPQuanTriVien> getAll();
     public TPQuanTriVien block (ChanTk chanTk );
+    public String Add (TPQuanTriVien add);
 }

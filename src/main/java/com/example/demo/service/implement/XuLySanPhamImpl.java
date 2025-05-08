@@ -15,7 +15,7 @@ public class XuLySanPhamImpl implements XuLySanPham {
     ProductRequest productRequest4 = new ProductRequest("quan",44444, "ao2", "nhucutboha", 904);
     ProductRequest ProductRequest5 = new ProductRequest("quan",55555, "quan3", "nhucuttet", 900);
 
-    List<ProductRequest> listProduct = new ArrayList<>(List.of(productRequest1,
+    public List<ProductRequest> listProduct = new ArrayList<>(List.of(productRequest1,
             productRequest2,
             productRequest3,
             productRequest4,
