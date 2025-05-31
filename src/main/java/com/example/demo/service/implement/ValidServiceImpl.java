@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ValidServiceImpl  implements ValidService {
 
+   public boolean equals(Object obj){
+       if(this == obj)
+           return true;
+       return false;
+   }
    @Override
     public String validRequstDangKy(ThanhPhanEmail thanhPhan) {
         if(thanhPhan.getEmail().length() < 20)
@@ -20,12 +25,20 @@ public class ValidServiceImpl  implements ValidService {
     }
     @Override
     public String validRequstDangNhap(ThanhPhanEmail thanhPhan) {
-        if(DangKyTaiKhoanImpl.danhSachEmail.contains(thanhPhan)){
-            if(DuyetEmail(thanhPhan) == null)
-                return "mat khau or tai khoan sai";
+       ThanhPhanEmail user = new ThanhPhanEmail("@12345678", "12345678");
+        if( true){
+            if( equals(user) ==  equals(thanhPhan))
                 return "dang nhap thanh cong";
+            else
+                 return "mat khau or tai khoan sai";
         }
+        else
         return "tai khoan chua dang ky";
+    }
+
+    @Override
+    public ThanhPhanEmail xemtaikhoan (){
+       return DangKyTaiKhoanImpl.danhSachEmail.get(1);
     }
     public ThanhPhanEmail DuyetEmail (ThanhPhanEmail thanhPhan){
        for(ThanhPhanEmail account : DangKyTaiKhoanImpl.danhSachEmail){

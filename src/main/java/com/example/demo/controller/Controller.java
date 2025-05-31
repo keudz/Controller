@@ -6,10 +6,8 @@ import com.example.demo.dto.request.ChanTk;
 import com.example.demo.dto.request.ProductRequest;
 import com.example.demo.dto.request.TPQuanTriVien;
 import com.example.demo.dto.request.ThanhPhanEmail;
-import com.example.demo.service.DangNhapTaiKhoan;
-import com.example.demo.service.DangkyTaiKhoan;
-import com.example.demo.service.QuanTriVien;
-import com.example.demo.service.XuLySanPham;
+import com.example.demo.service.*;
+import com.example.demo.service.implement.DangNhapTaiKhoanImpl;
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -136,10 +134,15 @@ public class Controller {
     public class showaccount {
         @Autowired
         public DangkyTaiKhoan dangkyTaiKhoan;
+        @Autowired
+        public ValidService validService;
 
         @GetMapping(Urlconstant1.API_SHOW_ACCOUNT)
         public List<ThanhPhanEmail> showaccount() {
             return dangkyTaiKhoan.showaccount();
+        }@GetMapping(Urlconstant1.API_PREVIEW_PRODUCT)
+        public ThanhPhanEmail xemtaikhoan (){
+            return validService.xemtaikhoan();
         }
     }
 }

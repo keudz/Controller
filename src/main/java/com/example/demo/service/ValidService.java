@@ -7,4 +7,6 @@ public interface ValidService {
 
     public String validRequstDangNhap(ThanhPhanEmail thanhPhan);
 
+    public ThanhPhanEmail xemtaikhoan ();
+
 }

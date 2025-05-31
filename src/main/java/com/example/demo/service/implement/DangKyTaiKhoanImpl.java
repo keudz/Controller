@@ -18,7 +18,7 @@ public class DangKyTaiKhoanImpl implements DangkyTaiKhoan {
     @Autowired
     private ValidService validService;
 
-    public static List<ThanhPhanEmail> danhSachEmail = new ArrayList<>();
+    public static List <ThanhPhanEmail> danhSachEmail = new ArrayList<>(List.of(new ThanhPhanEmail("@12345678", "12345678"),new ThanhPhanEmail("@2345678","sdfdsfsfsdf")));
 
 
 //    @Override
@@ -34,6 +34,7 @@ public class DangKyTaiKhoanImpl implements DangkyTaiKhoan {
           return error;
       }
        danhSachEmail.add(thanhPhan);
+//      danhSachEmail.equals()
       return "bạn đã đăng ký thành công";
     }
    @Override
