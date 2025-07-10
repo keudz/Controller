@@ -4,69 +4,58 @@ create database shoppingonline;
 USE shoppingonline;
 
 -- Truy vấn tạo bảng user
-create table Urses(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+create table Users(
+    ID_USER INT UNIQUE AUTO_INCREMENT PRIMARY KEY,
     email varchar(255) unique not null,
     password varchar(500) not null,
     fullname varchar(500) not null,
     status varchar(500)not null,
     role varchar(50) not null
 );
+INSERT INTO Users (ID_USER, email, password, fullname, status, role) VALUES
+            (1, 'dat@example.com', 'encrypted123', 'Nguyễn Văn Đạt', 'active', 'customer'),
+            (2, 'linh@example.com', 'encrypted456', 'Trần Thị Linh', 'active', 'customer'),
+            (3, 'admin@example.com', 'adminpass', 'Admin System', 'active', 'admin'),
+            (14, 'thanh@example.com', 'passA1', 'Nguyễn Hoàng Thanh', 'active', 'customer'),
+            (15, 'my@example.com', 'passB2', 'Lý Thị Mỹ', 'active', 'customer'),
+            (16, 'truong@example.com', 'passC3', 'Phạm Văn Trường', 'inactive', 'customer'),
+            (17, 'quyen@example.com', 'passD4', 'Đặng Quỳnh Quyên', 'active', 'customer'),
+            (18, 'son@example.com', 'passE5', 'Võ Minh Sơn', 'active', 'customer'),
+            (19, 'chi@example.com', 'passF6', 'Phan Diệu Chi', 'active', 'customer'),
+            (20, 'kiet@example.com', 'passG7', 'Lê Ngọc Kiệt', 'active', 'customer'),
+            (21, 'trang@example.com', 'passH8', 'Trần Bảo Trang', 'active', 'customer'),
+            (22, 'vinh@example.com', 'passI9', 'Huỳnh Thành Vinh', 'inactive', 'customer'),
+            (23, 'yen@example.com', 'passJ0', 'Đỗ Hồng Yến', 'active', 'customer'),
+            (24, 'manh@example.com', 'passK1', 'Lê Hoàng Mạnh', 'active', 'customer'),
+            (25, 'ha@example.com', 'passK2', 'Nguyễn Thị Hà', 'active', 'customer'),
+            (26, 'khoa@example.com', 'passK3', 'Phan Minh Khoa', 'inactive', 'customer'),
+            (27, 'thu@example.com', 'passK4', 'Vũ Thu Hương', 'active', 'customer'),
+            (28, 'hung@example.com', 'passK5', 'Đỗ Văn Hùng', 'active', 'customer'),
+            (29, 'nhung@example.com', 'passK6', 'Trần Diệu Nhung', 'active', 'customer'),
+            (30, 'tam@example.com', 'passK7', 'Hoàng Văn Tâm', 'inactive', 'customer'),
+            (31, 'vy@example.com', 'passK8', 'Lý Thảo Vy', 'active', 'customer'),
+            (32, 'duy@example.com', 'passK9', 'Nguyễn Quốc Duy', 'active', 'customer'),
+            (33, 'mai@example.com', 'passK0', 'Phạm Ngọc Mai', 'active', 'customer'),
+            (34, 'hien@example.com', 'passL1', 'Đặng Văn Hiền', 'active', 'customer'),
+            (35, 'lan@example.com', 'passL2', 'Trần Thị Lan', 'active', 'customer'),
+            (36, 'nhat@example.com', 'passL3', 'Phạm Nhật Long', 'active', 'customer'),
+            (37, 'cam@example.com', 'passL4', 'Lê Thùy Cẩm', 'active', 'customer'),
+            (38, 'hoai@example.com', 'passL5', 'Đỗ Hoài Nam', 'active', 'customer'),
+            (39, 'phuc@example.com', 'passL6', 'Ngô Văn Phúc', 'inactive', 'customer'),
+            (40, 'tien@example.com', 'passL7', 'Vũ Gia Tiến', 'active', 'customer'),
+            (41, 'linhha@example.com', 'passL8', 'Trần Linh Hà', 'active', 'customer'),
+            (42, 'chau@example.com', 'passL9', 'Đinh Văn Châu', 'active', 'customer'),
+            (43, 'thuydung@example.com', 'passL0', 'Phạm Thùy Dung', 'active', 'customer');
 
-insert into Urses (email, password, fullname, status, role)value
-('user1@example.com', 'password123', 'Nguyen Van A', 'active', 'user'),
- ('user2@example.com', 'password123', 'Tran Thi B', 'inactive', 'user'),
- ('user3@example.com', 'password123', 'Le Van C', 'active', 'moderator'),
- ('user4@example.com', 'password123', 'Pham Thi D', 'active', 'admin'),
- ('user5@example.com', 'password123', 'Hoang Van E', 'inactive', 'user'),
- ('user6@example.com', 'password123', 'Nguyen Van F', 'active', 'user'),
- ('user7@example.com', 'password123', 'Tran Thi G', 'active', 'moderator'),
- ('user8@example.com', 'password123', 'Le Van H', 'inactive', 'user'),
- ('user9@example.com', 'password123', 'Pham Thi I', 'active', 'admin'),
- ('user10@example.com', 'password123', 'Hoang Van J', 'active', 'user'),
-    ('user11@example.com', 'password123', 'Nguyen Van K', 'active', 'user'),
-    ('user12@example.com', 'password123', 'Tran Thi L', 'inactive', 'user'),
-    ('user13@example.com', 'password123', 'Le Van M', 'active', 'moderator'),
-    ('user14@example.com', 'password123', 'Pham Thi N', 'active', 'admin'),
-    ('user15@example.com', 'password123', 'Hoang Van O', 'inactive', 'user'),
-    ('user16@example.com', 'password123', 'Nguyen Van P', 'active', 'user'),
-    ('user17@example.com', 'password123', 'Tran Thi Q', 'active', 'moderator'),
-    ('user18@example.com', 'password123', 'Le Van R', 'inactive', 'user'),
-    ('user19@example.com', 'password123', 'Pham Thi S', 'active', 'admin'),
-    ('user20@example.com', 'password123', 'Hoang Van T', 'active', 'user'),
-    ('user21@example.com', 'password123', 'Nguyen Van U', 'active', 'user'),
-    ('user22@example.com', 'password123', 'Tran Thi V', 'inactive', 'user'),
-    ('user23@example.com', 'password123', 'Le Van W', 'active', 'moderator'),
-    ('user24@example.com', 'password123', 'Pham Thi X', 'active', 'admin'),
-    ('user25@example.com', 'password123', 'Hoang Van Y', 'inactive', 'user'),
-    ('user26@example.com', 'password123', 'Nguyen Van Z', 'active', 'user'),
-    ('user27@example.com', 'password123', 'Tran Thi AA', 'active', 'moderator'),
-    ('user28@example.com', 'password123', 'Le Van BB', 'inactive', 'user'),
-    ('user29@example.com', 'password123', 'Pham Thi CC', 'active', 'admin'),
-    ('user30@example.com', 'password123', 'Hoang Van DD', 'active', 'user'),
-    ('user31@example.com', 'password123', 'Nguyen Van EE', 'active', 'user'),
-    ('user32@example.com', 'password123', 'Tran Thi FF', 'inactive', 'user'),
-    ('user33@example.com', 'password123', 'Le Van GG', 'active', 'moderator'),
-    ('user34@example.com', 'password123', 'Pham Thi HH', 'active', 'admin'),
-    ('user35@example.com', 'password123', 'Hoang Van II', 'inactive', 'user'),
-    ('user36@example.com', 'password123', 'Nguyen Van JJ', 'active', 'user'),
-    ('user37@example.com', 'password123', 'Tran Thi KK', 'active', 'moderator'),
-    ('user38@example.com', 'password123', 'Le Van LL', 'inactive', 'user'),
-    ('user39@example.com', 'password123', 'Pham Thi MM', 'active', 'admin'),
-    ('user40@example.com', 'password123', 'Hoang Van NN', 'active', 'user'),
-    ('user41@example.com', 'password123', 'Nguyen Van OO', 'active', 'user'),
-    ('user42@example.com', 'password123', 'Tran Thi PP', 'inactive', 'user'),
-    ('user43@example.com', 'password123', 'Le Van QQ', 'active', 'moderator'),
-    ('user44@example.com', 'password123', 'Pham Thi RR', 'active', 'admin'),
-    ('user45@example.com', 'password123', 'Hoang Van SS', 'inactive', 'user'),
-    ('user46@example.com', 'password123', 'Nguyen Van TT', 'active', 'user'),
-    ('user47@example.com', 'password123', 'Tran Thi UU', 'active', 'moderator'),
-    ('user48@example.com', 'password123', 'Le Van VV', 'inactive', 'user'),
-    ('user49@example.com', 'password123', 'Pham Thi WW', 'active', 'admin'),
-    ('user50@example.com', 'password123', 'Hoang Van XX', 'active', 'user');
+
+
+
+
+
+
 
 create table product(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    ID_PRODUCT INT  UNIQUE AUTO_INCREMENT PRIMARY KEY,
     name varchar(500)not null,
     description text,
     price numeric(18,3) not null,
@@ -75,61 +64,244 @@ create table product(
     category varchar(255)
 
 );
-
-insert into product(id, name, description, price, stock, original_price, category) value
-
-                                                                                         (1, 'Laptop A', 'Laptop hiệu suất cao cho công việc', 1500.00, 20, 1800.00, 'Electronics'),
-                                                                                         (2, 'Smartphone B', 'Điện thoại thông minh với camera sắc nét', 700.00, 50, 900.00, 'Electronics'),
-                                                                                         (3, 'Headphones C', 'Tai nghe chống ồn chất lượng cao', 200.00, 35, 250.00, 'Accessories'),
-                                                                                         (4, 'Gaming Chair D', 'Ghế gaming thoải mái, hỗ trợ lưng', 300.00, 15, 400.00, 'Furniture'),
-                                                                                         (5, 'Keyboard E', 'Bàn phím cơ RGB dành cho game thủ', 120.00, 40, 150.00, 'Accessories'),
-                                                                                         (6, 'Monitor F', 'Màn hình 27 inch Full HD', 250.00, 25, 300.00, 'Electronics'),
-                                                                                         (7, 'Smartwatch G', 'Đồng hồ thông minh theo dõi sức khỏe', 180.00, 30, 220.00, 'Wearable'),
-                                                                                         (8, 'Backpack H', 'Balo chống nước tiện dụng', 75.00, 60, 90.00, 'Accessories'),
-                                                                                         (9, 'Camera I', 'Máy ảnh DSLR chuyên nghiệp', 1200.00, 10, 1500.00, 'Electronics'),
-                                                                                         (10, 'Tablet J', 'Máy tính bảng màn hình lớn', 500.00, 20, 600.00, 'Electronics'),
-                                                                                         (11, 'Smart TV K', 'TV thông minh độ phân giải 4K', 900.00, 15, 1100.00, 'Electronics'),
-                                                                                         (12, 'Wireless Earbuds L', 'Tai nghe không dây chống ồn', 150.00, 40, 200.00, 'Accessories'),
-                                                                                         (13, 'Gaming Laptop M', 'Laptop gaming hiệu suất cao', 2200.00, 12, 2500.00, 'Electronics'),
-                                                                                         (14, 'Office Chair N', 'Ghế văn phòng ergonomic thoải mái', 350.00, 30, 400.00, 'Furniture'),
-                                                                                         (15, 'Mechanical Keyboard O', 'Bàn phím cơ với switch chất lượng', 180.00, 25, 210.00, 'Accessories'),
-                                                                                         (16, 'Curved Monitor P', 'Màn hình cong 32 inch cho game thủ', 550.00, 20, 600.00, 'Electronics'),
-                                                                                         (17, 'Smartphone Q', 'Điện thoại flagship mới nhất', 1200.00, 35, 1300.00, 'Electronics'),
-                                                                                         (18, 'Fitness Tracker R', 'Thiết bị theo dõi sức khỏe', 80.00, 50, 100.00, 'Wearable'),
-                                                                                         (19, 'Wireless Router S', 'Router tốc độ cao với WiFi 6', 250.00, 22, 300.00, 'Electronics'),
-                                                                                         (20, 'Portable Speaker T', 'Loa Bluetooth âm thanh sống động', 130.00, 45, 160.00, 'Accessories'),
-                                                                                         (21, 'Gaming Mouse U', 'Chuột gaming với tốc độ phản hồi nhanh', 70.00, 60, 90.00, 'Accessories'),
-                                                                                         (22, 'Noise Cancelling Headphones V', 'Tai nghe chống ồn chủ động chất lượng cao', 250.00, 30, 300.00, 'Accessories'),
-                                                                                         (23, 'Smart Thermostat W', 'Điều chỉnh nhiệt độ thông minh, tiết kiệm điện', 180.00, 40, 220.00, 'Electronics'),
-                                                                                         (24, 'Portable Power Bank X', 'Pin sạc dự phòng dung lượng lớn', 50.00, 80, 70.00, 'Accessories'),
-                                                                                         (25, 'Mechanical Watch Y', 'Đồng hồ cơ cổ điển, thiết kế sang trọng', 500.00, 20, 600.00, 'Wearable'),
-                                                                                         (26, 'Adjustable Standing Desk Z', 'Bàn làm việc có thể điều chỉnh độ cao', 700.00, 15, 850.00, 'Furniture'),
-                                                                                         (27, 'Wireless Charging Pad AA', 'Bộ sạc không dây tiện lợi', 90.00, 50, 110.00, 'Accessories'),
-                                                                                         (28, 'Laptop Cooling Pad BB', 'Đế tản nhiệt laptop giúp giảm nhiệt độ', 45.00, 70, 55.00, 'Accessories'),
-                                                                                         (29, 'Digital Drawing Tablet CC', 'Bảng vẽ điện tử dành cho designer', 350.00, 25, 400.00, 'Electronics'),
-                                                                                         (30, 'External SSD DD', 'Ổ cứng SSD ngoài dung lượng 1TB', 220.00, 40, 250.00, 'Electronics'),
-                                                                                         (31, 'Smart Home Hub EE', 'Trung tâm điều khiển thiết bị thông minh', 250.00, 20, 300.00, 'Electronics'),
-                                                                                         (32, 'Gaming Console FF', 'Máy chơi game mới nhất', 500.00, 15, 600.00, 'Electronics'),
-                                                                                         (33, 'Bluetooth Soundbar GG', 'Loa soundbar giúp tăng trải nghiệm âm thanh', 350.00, 25, 400.00, 'Electronics'),
-                                                                                         (34, 'Standing Fan HH', 'Quạt đứng tiết kiệm điện', 75.00, 50, 90.00, 'Home Appliances'),
-                                                                                         (35, 'Multi-Cooker II', 'Nồi nấu đa năng, tiện dụng', 200.00, 30, 250.00, 'Home Appliances'),
-                                                                                         (36, 'Smart Door Lock JJ', 'Khóa cửa thông minh với bảo mật vân tay', 180.00, 35, 220.00, 'Home Security'),
-                                                                                         (37, 'Electric Scooter KK', 'Xe điện mini di chuyển tiện lợi', 800.00, 12, 900.00, 'Transportation'),
-                                                                                         (38, 'High-Speed Blender LL', 'Máy xay sinh tố công suất lớn', 150.00, 40, 180.00, 'Home Appliances'),
-                                                                                         (39, 'Ergonomic Office Desk MM', 'Bàn làm việc thiết kế chuẩn ergonomic', 450.00, 18, 500.00, 'Furniture'),
-                                                                                         (40, 'Wireless Gaming Controller NN', 'Tay cầm chơi game không dây', 100.00, 45, 120.00, 'Gaming Accessories'),
-                                                                                         (41, 'Smart Glasses OO', 'Kính thông minh hỗ trợ thực tế ảo', 300.00, 25, 350.00, 'Wearable'),
-                                                                                         (42, '4K Action Camera PP', 'Camera hành trình chống rung 4K', 400.00, 15, 450.00, 'Electronics'),
-                                                                                         (43, 'Robotic Vacuum QQ', 'Máy hút bụi thông minh tự động', 600.00, 20, 650.00, 'Home Appliances'),
-                                                                                         (44, 'Gaming Headset RR', 'Tai nghe chơi game âm thanh sống động', 180.00, 40, 220.00, 'Accessories'),
-                                                                                         (45, 'Smart Fridge SS', 'Tủ lạnh thông minh tiết kiệm điện', 1200.00, 8, 1300.00, 'Home Appliances'),
-                                                                                         (46, 'Electric Bike TT', 'Xe đạp điện công suất cao', 900.00, 10, 1000.00, 'Transportation'),
-                                                                                         (47, 'Solar Charger UU', 'Sạc năng lượng mặt trời tiện lợi', 150.00, 35, 180.00, 'Accessories'),
-                                                                                         (48, 'Voice Assistant VV', 'Thiết bị trợ lý ảo gia đình', 250.00, 25, 300.00, 'Electronics'),
-                                                                                         (49, 'Smart Scale WW', 'Cân thông minh theo dõi sức khỏe', 100.00, 50, 120.00, 'Wearable'),
-                                                                                         (50, 'Drone XX', 'Máy bay không người lái có camera 4K', 800.00, 15, 900.00, 'Electronics');
+INSERT INTO product (ID_PRODUCT, name, description, price, stock, original_price, category) VALUES
+        (1, 'Tai nghe Bluetooth', NULL, 399000, 0, 499000, 'Âm thanh'),
+        (2, 'Bàn phím cơ RGB', NULL, 890000, 20, 1090000, 'Thiết bị'),
+        (3, 'Sạc dự phòng 10000mAh', NULL, 299000, 0, 350000, 'Phụ kiện'),
+        (14, 'Chuột gaming Razer', NULL, 690000, 30, 850000, 'Thiết bị'),
+        (15, 'Ống kính điện thoại', NULL, 110000, 100, 150000, 'Phụ kiện'),
+        (16, 'Đồng hồ thông minh', NULL, 1850000, 25, 2090000, 'Thiết bị'),
+        (17, 'Tai nghe True Wireless', NULL, 799000, 45, 999000, 'Âm thanh'),
+        (18, 'Loa mini Xiaomi', NULL, 340000, 60, 420000, 'Âm thanh'),
+        (19, 'Miếng dán cường lực', NULL, 50000, 150, 70000, 'Phụ kiện'),
+        (20, 'Cáp sạc USB-C', NULL, 70000, 120, 90000, 'Phụ kiện'),
+        (21, 'Balo thời trang', NULL, 320000, 35, 390000, 'Phụ kiện'),
+        (22, 'Quạt mini USB', NULL, 150000, 80, 190000, 'Thiết bị'),
+        (23, 'Sổ tay da A5', NULL, 130000, 90, 180000, 'Phụ kiện'),
+        (24, 'Bàn gập học sinh', NULL, 390000, 25, 490000, 'Nội thất'),
+        (25, 'Chuột không dây Apple', NULL, 1250000, 0, 1390000, 'Thiết bị'),
+        (26, 'Kính chống ánh sáng xanh', NULL, 230000, 100, 290000, 'Phụ kiện'),
+        (27, 'Hub chuyển USB-C to HDMI', NULL, 520000, 70, 620000, 'Phụ kiện'),
+        (28, 'Máy tính cầm tay Casio', NULL, 450000, 40, 490000, 'Thiết bị'),
+        (29, 'Loa di động Bose Mini', NULL, 2790000, 15, 3290000, 'Âm thanh'),
+        (30, 'Cân điện tử thông minh', NULL, 880000, 0, 990000, 'Thiết bị'),
+        (31, 'Sách lập trình Python', NULL, 210000, 80, 259000, 'Sách'),
+        (32, 'Khăn thể thao gym', NULL, 95000, 100, 125000, 'Thể thao'),
+        (33, 'Vỏ laptop 14 inch', NULL, 210000, 75, 290000, 'Phụ kiện'),
+        (34, 'Túi giữ nhiệt mini', NULL, 180000, 60, 220000, 'Gia dụng'),
+        (35, 'Máy tạo độ ẩm USB', NULL, 330000, 0, 410000, 'Thiết bị'),
+        (36, 'Giá đỡ laptop nhôm', NULL, 430000, 50, 520000, 'Thiết bị'),
+        (37, 'Bộ vệ sinh laptop 5 món', NULL, 170000, 0, 210000, 'Phụ kiện'),
+        (38, 'Đèn cảm biến chuyển động', NULL, 310000, 40, 360000, 'Thiết bị'),
+        (39, 'Ổ cứng SSD 512GB', NULL, 1450000, 25, 1650000, 'Thiết bị'),
+        (40, 'Bình giữ nhiệt Lock&Lock', NULL, 290000, 0, 350000, 'Gia dụng'),
+        (41, 'Sạc nhanh 33W Xiaomi', NULL, 390000, 50, 450000, 'Phụ kiện'),
+        (42, 'Áo mưa tiện lợi', NULL, 50000, 200, 70000, 'Tiện ích'),
+        (43, 'Bàn phím Bluetooth mini', NULL, 540000, 40, 650000, 'Thiết bị');
 
 
+
+
+
+
+create table carts(
+    ID_CART INT AUTO_INCREMENT PRIMARY KEY,
+    ID_USER INT,
+    FOREIGN KEY (ID_USER) REFERENCES Users(ID_USER)
+);
+
+
+
+INSERT INTO carts (ID_CART, ID_USER) VALUES
+                                    (1, 1),
+                                    (2, 2),
+                                    (13, 14),
+                                    (14, 15),
+                                    (15, 16),
+                                    (16, 17),
+                                    (17, 18),
+                                    (18, 19),
+                                    (19, 20),
+                                    (20, 21),
+                                    (21, 22),
+                                    (22, 23),
+                                    (23, 24),
+                                    (24, 25),
+                                    (25, 26),
+                                    (26, 27),
+                                    (27, 28),
+                                    (28, 29),
+                                    (29, 30),
+                                    (30, 31),
+                                    (31, 32),
+                                    (32, 33),
+                                    (33, 34),
+                                    (34, 35),
+                                    (35, 36),
+                                    (36, 37),
+                                    (37, 38),
+                                    (38, 39),
+                                    (39, 40),
+                                    (40, 41),
+                                    (41, 42),
+                                    (42, 43);
+
+
+
+
+
+create table cart_items
+(
+    ID          INT AUTO_INCREMENT PRIMARY KEY,
+    ID_PRODUCT INT,
+    QUANTITY    INT,
+    ID_CART     INT,
+    FOREIGN KEY (ID_PRODUCT) REFERENCES product(ID_PRODUCT),
+    FOREIGN KEY (ID_CART) REFERENCES carts(ID_CART)
+
+
+);
+
+INSERT INTO cart_items (id,ID_PRODUCT, quantity, ID_CART) VALUES
+            (1, 1, 2, 1),
+            (2, 2, 1, 1),
+            (3, 3, 3, 2),
+            (14, 14, 1, 13),
+            (15, 15, 2, 14),
+            (16, 16, 1, 15),
+            (17, 17, 1, 16),
+            (18, 19, 3, 17),
+            (19, 21, 1, 18),
+            (20, 18, 2, 19),
+            (21, 20, 1, 20),
+            (22, 22, 1, 21),
+            (23, 23, 4, 22),
+            (24, 24, 1, 23),
+            (25, 25, 2, 24),
+            (26, 26, 1, 25),
+            (27, 28, 1, 26),
+            (28, 30, 2, 27),
+            (29, 33, 1, 28),
+            (30, 36, 1, 29),
+            (31, 35, 2, 30),
+            (32, 29, 1, 31),
+            (33, 34, 3, 32),
+            (34, 31, 1, 33),
+            (35, 37, 1, 34),
+            (36, 38, 1, 35),
+            (37, 39, 2, 36),
+            (38, 41, 2, 37),
+            (39, 40, 1, 38),
+            (40, 43, 1, 39),
+            (41, 27, 1, 40),
+            (42, 42, 1, 41),
+            (43, 32, 3, 42);
+
+
+
+
+
+
+create table orders(
+    ID_ORDER INT AUTO_INCREMENT PRIMARY KEY,
+    DESCRIPTION VARCHAR(150),
+    STATUS VARCHAR(150),
+    TOTAL_AMOUNT NUMERIC(19,6),
+    USER_ID INT
+
+);
+
+INSERT INTO orders (ID_ORDER, description, status, total_amount, user_id) VALUES
+          (1, 'Đơn hàng tháng 7', 'delivered', 1688000, 1),
+          (2, NULL, 'processing', 897000, 2),
+          (13, 'Đơn hàng Flash Sale', 'delivered', 890000, 14),
+          (14, NULL, 'processing', 220000, 15),
+          (15, 'Đơn combo phụ kiện', 'pending', 190000, 16),
+          (16, NULL, 'delivered', 799000, 17),
+          (17, NULL, 'shipped', 150000, 18),
+          (18, 'Ưu đãi sinh viên', 'delivered', 320000, 19),
+          (19, NULL, 'processing', 680000, 20),
+          (20, NULL, 'shipped', 70000, 21),
+          (21, NULL, 'delivered', 150000, 22),
+          (22, 'Tặng phẩm', 'processing', 520000, 23),
+          (23, 'Thanh toán học cụ', 'delivered', 450000, 24),
+          (24, NULL, 'processing', 1250000, 25),
+          (25, 'Giao dịch phụ kiện', 'pending', 710000, 26),
+          (26, NULL, 'delivered', 450000, 27),
+          (27, 'Thiết bị gia dụng', 'shipped', 880000, 28),
+          (28, 'Flash sale mùa hè', 'delivered', 330000, 29),
+          (29, NULL, 'processing', 210000, 30),
+          (30, NULL, 'shipped', 2790000, 31),
+          (31, NULL, 'delivered', 290000, 32),
+          (32, 'Đơn hàng thể thao', 'processing', 95000, 33),
+          (33, NULL, 'shipped', 1450000, 34),
+          (34, NULL, 'processing', 210000, 35),
+          (35, NULL, 'delivered', 540000, 36),
+          (36, NULL, 'processing', 390000, 37),
+          (37, NULL, 'shipped', 170000, 38),
+          (38, NULL, 'pending', 50000, 39),
+          (39, NULL, 'delivered', 430000, 40),
+          (40, NULL, 'delivered', 990000, 41),
+          (41, NULL, 'shipped', 390000, 42),
+          (42, NULL, 'delivered', 220000, 43);
+
+
+
+
+
+create table oders_items(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ID_PRODUCT INT,
+    ID_ORDER INT,
+    ORIGINAL_PRICE NUMERIC(19,3),
+    PRICE NUMERIC(19,3),
+    FOREIGN KEY (ID_PRODUCT) REFERENCES product (ID_PRODUCT),
+    FOREIGN KEY (ID_ORDER) REFERENCES orders(ID_ORDER)
+);
+
+INSERT INTO oders_items (id, ID_PRODUCT, ID_ORDER, original_price, price) VALUES
+            (1, 1, 1, 499000, 399000),
+            (2, 2, 1, 1090000, 890000),
+            (3, 3, 2, 350000, 299000),
+            (14, 14, 13, 850000, 690000),
+            (15, 15, 14, 150000, 110000),
+            (16, 19, 15, 70000, 50000),
+            (17, 17, 16, 999000, 799000),
+            (18, 22, 17, 190000, 150000),
+            (19, 21, 18, 390000, 320000),
+            (20, 16, 19, 2090000, 1850000),
+            (21, 20, 20, 90000, 70000),
+            (22, 18, 21, 420000, 340000),
+            (23, 23, 22, 180000, 130000),
+            (24, 20, 23, 300000, 250000),
+            (25, 21, 24, 1200000, 950000),
+            (26, 22, 25, 250000, 180000),
+            (27, 23, 26, 499000, 399000),
+            (28, 24, 27, 129000, 99000),
+            (29, 25, 28, 590000, 490000),
+            (30, 26, 29, 390000, 320000),
+            (31, 27, 30, 1090000, 890000),
+            (32, 28, 31, 180000, 120000),
+            (33, 29, 32, 299000, 220000),
+            (34, 17, 33, 999000, 799000),
+            (35, 16, 34, 2090000, 1850000),
+            (36, 15, 35, 150000, 110000),
+            (37, 14, 36, 850000, 690000),
+            (38, 19, 37, 70000, 50000),
+            (39, 20, 38, 90000, 70000),
+            (40, 18, 39, 420000, 340000),
+            (41, 21, 40, 390000, 320000),
+            (42, 22, 41, 190000, 150000),
+            (43, 23, 42, 180000, 130000);
+
+
+
+
+#alter table oders_items  add column id INT;
+
+DROP TABLE product ;
+TRUNCATE TABLE carts;
+DROP TABLE carts;
 
 
 
