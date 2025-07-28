@@ -5,47 +5,14 @@ USE shoppingonline;
 #Bài 18
 -- Truy vấn tạo bảng user
 create table Users(
-    ID_USER INT UNIQUE AUTO_INCREMENT PRIMARY KEY,
+    id INT UNIQUE AUTO_INCREMENT PRIMARY KEY,
     email varchar(255) unique not null,
     password varchar(500) not null,
-    fullname varchar(500) not null,
-    status varchar(500)not null,
-    role varchar(50) not null
+    fullname varchar(500) not null
+
 );
-INSERT INTO Users (ID_USER, email, password, fullname, status, role) VALUES
-            (1, 'dat@example.com', 'encrypted123', 'Nguyễn Văn Đạt', 'active', 'customer'),
-            (2, 'linh@example.com', 'encrypted456', 'Trần Thị Linh', 'active', 'customer'),
-            (3, 'admin@example.com', 'adminpass', 'Admin System', 'active', 'admin'),
-            (14, 'thanh@example.com', 'passA1', 'Nguyễn Hoàng Thanh', 'active', 'customer'),
-            (15, 'my@example.com', 'passB2', 'Lý Thị Mỹ', 'active', 'customer'),
-            (16, 'truong@example.com', 'passC3', 'Phạm Văn Trường', 'inactive', 'customer'),
-            (17, 'quyen@example.com', 'passD4', 'Đặng Quỳnh Quyên', 'active', 'customer'),
-            (18, 'son@example.com', 'passE5', 'Võ Minh Sơn', 'active', 'customer'),
-            (19, 'chi@example.com', 'passF6', 'Phan Diệu Chi', 'active', 'customer'),
-            (20, 'kiet@example.com', 'passG7', 'Lê Ngọc Kiệt', 'active', 'customer'),
-            (21, 'trang@example.com', 'passH8', 'Trần Bảo Trang', 'active', 'customer'),
-            (22, 'vinh@example.com', 'passI9', 'Huỳnh Thành Vinh', 'inactive', 'customer'),
-            (23, 'yen@example.com', 'passJ0', 'Đỗ Hồng Yến', 'active', 'customer'),
-            (24, 'manh@example.com', 'passK1', 'Lê Hoàng Mạnh', 'active', 'customer'),
-            (25, 'ha@example.com', 'passK2', 'Nguyễn Thị Hà', 'active', 'customer'),
-            (26, 'khoa@example.com', 'passK3', 'Phan Minh Khoa', 'inactive', 'customer'),
-            (27, 'thu@example.com', 'passK4', 'Vũ Thu Hương', 'active', 'customer'),
-            (28, 'hung@example.com', 'passK5', 'Đỗ Văn Hùng', 'active', 'customer'),
-            (29, 'nhung@example.com', 'passK6', 'Trần Diệu Nhung', 'active', 'customer'),
-            (30, 'tam@example.com', 'passK7', 'Hoàng Văn Tâm', 'inactive', 'customer'),
-            (31, 'vy@example.com', 'passK8', 'Lý Thảo Vy', 'active', 'customer'),
-            (32, 'duy@example.com', 'passK9', 'Nguyễn Quốc Duy', 'active', 'customer'),
-            (33, 'mai@example.com', 'passK0', 'Phạm Ngọc Mai', 'active', 'customer'),
-            (34, 'hien@example.com', 'passL1', 'Đặng Văn Hiền', 'active', 'customer'),
-            (35, 'lan@example.com', 'passL2', 'Trần Thị Lan', 'active', 'customer'),
-            (36, 'nhat@example.com', 'passL3', 'Phạm Nhật Long', 'active', 'customer'),
-            (37, 'cam@example.com', 'passL4', 'Lê Thùy Cẩm', 'active', 'customer'),
-            (38, 'hoai@example.com', 'passL5', 'Đỗ Hoài Nam', 'active', 'customer'),
-            (39, 'phuc@example.com', 'passL6', 'Ngô Văn Phúc', 'inactive', 'customer'),
-            (40, 'tien@example.com', 'passL7', 'Vũ Gia Tiến', 'active', 'customer'),
-            (41, 'linhha@example.com', 'passL8', 'Trần Linh Hà', 'active', 'customer'),
-            (42, 'chau@example.com', 'passL9', 'Đinh Văn Châu', 'active', 'customer'),
-            (43, 'thuydung@example.com', 'passL0', 'Phạm Thùy Dung', 'active', 'customer');
+Drop table Users ;
+ALTER TABLE users CHANGE ID_USER id int;
 
 
 
@@ -156,11 +123,13 @@ create table cart_items
     ID_PRODUCT INT,
     QUANTITY    INT,
     ID_CART     INT,
-    FOREIGN KEY (ID_PRODUCT) REFERENCES product(ID_PRODUCT),
-    FOREIGN KEY (ID_CART) REFERENCES carts(ID_CART)
+    FOREIGN KEY (ID_CART) REFERENCES carts(ID_CART),
+    FOREIGN KEY (ID_PRODUCT) REFERENCES product(ID_PRODUCT) ON DELETE CASCADE #ON DELETE CASCADE này sẽ xoá tất cả những j liên quan khi bên product bị xoá đi 1 instance nào đó
 
 
 );
+
+
 
 INSERT INTO cart_items (id,ID_PRODUCT, quantity, ID_CART) VALUES
             (1, 1, 2, 1),
@@ -247,15 +216,16 @@ INSERT INTO orders (ID_ORDER, description, status, total_amount, user_id) VALUES
 
 
 
-
-
+DROP table product;
+DROP table cart_items;
+drop table oders_items;
 create table oders_items(
     id INT AUTO_INCREMENT PRIMARY KEY,
     ID_PRODUCT INT,
     ID_ORDER INT,
     ORIGINAL_PRICE NUMERIC(19,3),
     PRICE NUMERIC(19,3),
-    FOREIGN KEY (ID_PRODUCT) REFERENCES product (ID_PRODUCT),
+    FOREIGN KEY (ID_PRODUCT) REFERENCES product (ID_PRODUCT) ON DELETE CASCADE,
     FOREIGN KEY (ID_ORDER) REFERENCES orders(ID_ORDER)
 );
 
