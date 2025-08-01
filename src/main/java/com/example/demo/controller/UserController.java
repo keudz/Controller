@@ -81,4 +81,25 @@ public class UserController {
          return showProductAdmin.showAllProduct();
      }
 
+     @Autowired
+    private UserService addPtoductToCart;
+     @GetMapping(UrlConstant.ADD_PRODUCT_TO_CART)
+     public Object AddProductToCart(@RequestParam String nameProduct,@RequestParam String email,@RequestParam int quantity) {
+         return addPtoductToCart.addProduct(email,nameProduct,quantity);
+     }
+
+     @Autowired
+     private UserService userCheckListProduct;
+     @GetMapping(UrlConstant.USER_CHECK_LIST_PRODUCT)
+    public Object userCheckListProduct(@RequestParam String email) {
+         return  userCheckListProduct.userCheckListProduct(email);
+     }
+
+     @Autowired
+     private UserService userDeleteProduct;
+     @DeleteMapping(UrlConstant.USER_DELETE_PRODUCT_BY_NAME)
+    public String DeleteProductById(@RequestParam String email, String nameProduct) {
+         return userDeleteProduct.userDeleteProduct(email,nameProduct);
+     }
+
 }

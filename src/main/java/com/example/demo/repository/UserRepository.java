@@ -9,5 +9,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
        //User là bảng còn Integer là kiểu dữ liệu của id
        User findById(int id);
        User findByFullname(String name);
+       User findByEmail(String email);
 
 }

@@ -168,3 +168,9 @@ Select book.title, book.price
 from book
 inner join publisher on book.Pub_Id = publisher.Pub_Id
 where publisher.City = 'Hanoi' and book.Price > (SELECT AVG(Price) FROM BOOK);
+
+SELECT p.*
+FROM cart_items ci
+         JOIN carts c ON ci.ID_CART = c.ID_CART
+         JOIN product p on ci.ID_PRODUCT = p.ID_PRODUCT
+WHERE c.ID_USER = 2;

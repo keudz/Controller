@@ -15,4 +15,11 @@ public interface UserService {
     User getUserById(int id);
 
     List<Product> showallproduct();
+
+    Object addProduct(String email,String nameProduct,int quantity);
+
+    Object userCheckListProduct(String email);
+
+    String userDeleteProduct(String email,String nameProduct);
+
 }

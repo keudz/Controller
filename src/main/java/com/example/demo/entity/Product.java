@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "product")
 public class Product {
@@ -21,6 +23,12 @@ public class Product {
     private double original_price;
 
     private String category;
+
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Cart_Iterm> cartItermList;
+
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Order_Iterm> orderItermList;
 
 
     public Product() {};
@@ -79,6 +87,22 @@ public class Product {
 
     public void setID_PRODUCT(int ID_PRODUCT) {
         this.ID_PRODUCT = ID_PRODUCT;
+    }
+
+    public List<Cart_Iterm> getCartItermList() {
+        return cartItermList;
+    }
+
+    public void setCartItermList(List<Cart_Iterm> cartItermList) {
+        this.cartItermList = cartItermList;
+    }
+
+    public List<Order_Iterm> getOrderItermList() {
+        return orderItermList;
+    }
+
+    public void setOrderItermList(List<Order_Iterm> orderItermList) {
+        this.orderItermList = orderItermList;
     }
 }
 
