@@ -3,7 +3,8 @@ package com.example.demo.controller;
 
 import com.example.demo.constant.UrlConstant;
 import com.example.demo.dto.request.UserCreateRequestDTO;
-import com.example.demo.dto.response.UserCreateResonseDTO;
+import com.example.demo.dto.request.UserLoginRequestDTO;
+import com.example.demo.dto.response.UserCreateResponseDTO;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.User;
 import com.example.demo.service.AdminService;
@@ -19,7 +20,6 @@ import java.util.List;
 public class UserController {
       @Autowired
       private UserService userSevice;
-
     @PostMapping(UrlConstant.API_V1_CREATE_USER)
     public Object CreateUser(@RequestBody UserCreateRequestDTO user) {
       return  userSevice.createUser(user);
@@ -28,15 +28,15 @@ public class UserController {
     @Autowired
     private UserService userLoginAcount;
     @PostMapping(UrlConstant.API_V1_LOGIN_USERS)
-    public Object LoginUser(@RequestBody UserCreateResonseDTO user) {
+    public Object LoginUser(@RequestBody UserLoginRequestDTO user) {
         return userLoginAcount.login(user);
     }
 
 
     @Autowired
     private UserService getUser;
-    @PostMapping(UrlConstant.API_V1_SHOW_USER)
-    public User GetUser(@RequestParam int id) {
+    @GetMapping(UrlConstant.API_V1_GET_USER)
+    public UserCreateResponseDTO GetUser(@RequestParam int id) {
        return getUser.getUserById(id);
     }
 
@@ -84,8 +84,8 @@ public class UserController {
      @Autowired
     private UserService addPtoductToCart;
      @GetMapping(UrlConstant.ADD_PRODUCT_TO_CART)
-     public Object AddProductToCart(@RequestParam String nameProduct,@RequestParam String email,@RequestParam int quantity) {
-         return addPtoductToCart.addProduct(email,nameProduct,quantity);
+     public Object AddProductToCart(@RequestParam UserLoginRequestDTO user,@RequestParam String nameProduct,@RequestParam int quantity) {
+         return addPtoductToCart.addProduct(user,nameProduct,quantity);
      }
 
      @Autowired
@@ -98,8 +98,8 @@ public class UserController {
      @Autowired
      private UserService userDeleteProduct;
      @DeleteMapping(UrlConstant.USER_DELETE_PRODUCT_BY_NAME)
-    public String DeleteProductById(@RequestParam String email, String nameProduct) {
-         return userDeleteProduct.userDeleteProduct(email,nameProduct);
+    public Object DeleteProductById(@RequestParam UserLoginRequestDTO user, String nameProduct) {
+         return userDeleteProduct.userDeleteProduct(user,nameProduct);
      }
 
 }

@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -28,6 +29,8 @@ public class User {
     //mappedby:chỉ định rằng entity user là entity thuộc sở hữu mối quán hệ (entity không chưa khoá ngoại)
     //cascade = CascadeType.ALL là khi entity chính bị xoá thì thì các entity còn lại cũng sẽ bị xoá theo
     //fetch = FetchType.EAGER là khi thong tin của User bi lấy ra thì thông tin của Cart cũng se bị lấy ra
+
+
     private Cart cart;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)

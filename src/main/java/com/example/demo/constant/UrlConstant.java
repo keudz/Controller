@@ -5,7 +5,7 @@ public class UrlConstant {
     public static final String API_V1_CREATE_USER = "/api/v1/createRe";
     public static final String API_V1_LOGIN_USERS = "/api/v1/loginRes";
     public static final String API_V1_VALIDATE_USER = "/api/v1/validateUser";
-    public static final String API_V1_SHOW_USER = "/api/v1/showUser";
+    public static final String API_V1_GET_USER = "/api/v1/showUser";
     public static final String API_V1_SHOW_ALL_PRODUCT = "/api/v1/showProductUser";
     public static final String API_V1_BLOCK_USER = "/api/v1/blockUser";
     public static final String API_V1_ADD_PRODUCT = "/a/api/v1/deleteProductById\"pi/v1/addProduct";

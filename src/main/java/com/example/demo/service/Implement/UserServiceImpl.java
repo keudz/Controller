@@ -1,7 +1,9 @@
 package com.example.demo.service.Implement;
 
 import com.example.demo.dto.request.UserCreateRequestDTO;
-import com.example.demo.dto.response.UserCreateResonseDTO;
+import com.example.demo.dto.request.UserLoginRequestDTO;
+import com.example.demo.dto.response.UserCreateResponseDTO;
+import com.example.demo.dto.response.UserListProductResponseDTO;
 import com.example.demo.entity.Cart;
 import com.example.demo.entity.Cart_Iterm;
 import com.example.demo.entity.Product;
@@ -17,7 +19,6 @@ import com.example.demo.entity.User; // ✅ đường dẫn đúng của class b
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,18 +33,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private OrderRepository orderRepository;
 
-    @Override
 
-    public UserCreateResonseDTO createUser(UserCreateRequestDTO user) {
-        String error = userValidateServiceImpl.ValidateCheckLogin(user);
-        UserCreateResonseDTO userRes = new UserCreateResonseDTO();
+    @Override
+    public UserCreateResponseDTO createUser(UserCreateRequestDTO user) {
+        String error = userValidateServiceImpl.ValidateCheckCreate(user);
+        UserCreateResponseDTO userRes = new UserCreateResponseDTO();
         if (error != null) {
             userRes.setError(error);
             return userRes;
         }
         User user1 = userRepository.findByFullname(user.getFullname());
         if (user1 != null) {
-            UserCreateResonseDTO userRes1 = new UserCreateResonseDTO();
+            UserCreateResponseDTO userRes1 = new UserCreateResponseDTO();
             userRes1.setError("ten tai khoan nay da ton tai");
             return userRes1;
         }
@@ -64,17 +65,27 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public String login(UserCreateResonseDTO user) {
-        return "success";
+    public Object login(UserLoginRequestDTO user) {
+        userValidateServiceImpl.ValidateCheckLogin(user);
+        if (user.getError() == null) {
+            User user1 = userRepository.selectUserByEmailAndPassWord(user.getEmail(), user.getPassword());
+            return "đăng nhập thành công!!!" + user1.getEmail() + user1.getFullname();
+        }
+
+        return user.getError();
+
     }
 
     @Override
-    public User getUserById(int id) {
-        User user = new User();
-        user = userRepository.findById(id);
+    public UserCreateResponseDTO getUserById(int id) {
+        User user = userRepository.selectUserById(id);
+        UserCreateResponseDTO userRes = new UserCreateResponseDTO();
         if (user != null) {
-            System.out.println("nguyen the dat!!!");
-            return user;
+            userRes.setName(user.getFullname());
+            userRes.setEmail(user.getEmail());
+            userRes.setError(null);
+            return userRes;
+
         }
         return null;
     }
@@ -82,14 +93,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Product> showallproduct() {
-        Product product = new Product();
         return productRepository.findAll();
     }
 
     @Override
-    public Object addProduct(String email, String nameProduct, int quantity) {
+    public Object addProduct(UserLoginRequestDTO user1, String nameProduct, int quantity) {
+        userValidateServiceImpl.ValidateCheckLogin(user1);
+        if (user1.getError() == null) {
+            return user1.getError();
+        }
+        User user = userRepository.selectUserByEmailAndPassWord(user1.getEmail(), user1.getPassword());
 
-        User user = userRepository.findByEmail(email);
         if (user == null) {
             return "khong cos user nay!!!!!";
         }
@@ -108,60 +122,42 @@ public class UserServiceImpl implements UserService {
         productRepository.save(product);
         cartRepository.save(cart);
 
-        return "đã thêm sản phẩm " + "" + nameProduct + "vào giỏ hàng!!";
+        return "đã thêm sản phẩm " + nameProduct + "vào giỏ hàng!!";
     }
 
     @Override
     public Object userCheckListProduct(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            return "khong co user nay!!!!!";
-        }
 
-        Cart cart = user.getCart();
-        if (cart == null || cart.getCartItermList().isEmpty()) {
-            return "khong co san pham nao trong gio hang!!!";
+        User user1 = userRepository.selectUserByEmail(email);
+        if (user1 == null) {
+            return "user not found!!!";
         }
-        List<Cart_Iterm> items = cart.getCartItermList();
-        List<String> result = new ArrayList<>();
-        for (Cart_Iterm item : items) {
-            result.add("Sản phẩm: " + item.getProduct().getName() +
-                    " | Số lượng: " + item.getQUANTITY());
-        }
-        return result;
+        Cart cart = user1.getCart();
+        UserListProductResponseDTO userRes = new UserListProductResponseDTO();
+        userRes.setItermList(cart.getCartItermList());
+        return userRes.getItermList();
+
     }
 
     @Override
-    public String userDeleteProduct(String email, String nameProduct) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
+    public Object userDeleteProduct(UserLoginRequestDTO user, String nameProduct) {
+        userValidateServiceImpl.ValidateCheckLogin(user);
+        if (user.getError() == null) {
+            return user.getError();
+        }
+        User user1 = userRepository.selectUserByEmailAndPassWord(user.getEmail(), user.getPassword());
+        if (user1 == null) {
             return " khong co user nay!!!";
         }
-
-        Cart cart = user.getCart();
+        Cart cart = user1.getCart();
         if (cart == null || cart.getCartItermList().isEmpty()) {
             return " user nay chua them san pham nao vao gio hang!!!";
         }
-        List<Cart_Iterm> items = cart.getCartItermList();
-        int count = 0;
-        Iterator<Cart_Iterm> iterator = items.iterator();
-        while (iterator.hasNext()) {
-            Cart_Iterm item = iterator.next();
-            if (item.getProduct().getName().equalsIgnoreCase(nameProduct)) {
-                iterator.remove();
-                count++;
-            }
-        }
-
-        if (count == 0) {
-            return "kh co san pham nay trong gio hang";
-        }
-        cartRepository.save(cart);
-        return "da xoa san pham khoi gio hang!!";
-          }
+        userRepository.deleteProductByName(nameProduct, cart.getID_CART());
+        return "da xoa thanh cong san pham " + nameProduct + "ra khoi gio hang!!";
     }
 
-
+}
 
 
 

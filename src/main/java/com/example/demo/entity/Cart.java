@@ -19,10 +19,10 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL,fetch = FetchType.LAZY ,  orphanRemoval = true)
     //orphanRemoval = true là một thuộc tính trong quan hệ @OneToMany hoặc @OneToOne của JPA/Hibernate,
-    //giúp tự động xóa bản ghi "mồ côi" khỏi database nếu nó bị xóa khỏi danh sách trong Java.
+    //giúp tự động xóa bản ghi "mồ côi"(orphan) khỏi database nếu nó bị xóa khỏi danh sách trong Java.
+
 
     private List<Cart_Iterm> cartItermList;
-
 
     public Cart() {
     }

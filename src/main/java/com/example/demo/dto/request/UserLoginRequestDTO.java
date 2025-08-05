@@ -1,18 +1,20 @@
-package com.example.demo.dto.response;
+package com.example.demo.dto.request;
 
-public class UserCreateResonseDTO {
+public class UserLoginRequestDTO {
     private String email;
-    private String Name;
+
+    private String password;
+
     private String error;
 
-    public UserCreateResonseDTO(String email, String Name,String error) {
+    public UserLoginRequestDTO(String email, String password, String error) {
         this.email = email;
-        this.Name = Name;
+        this.password = password;
         this.error = error;
+
     }
 
-    public UserCreateResonseDTO() {
-
+    public UserLoginRequestDTO() {
     }
 
     public String getEmail() {
@@ -23,12 +25,12 @@ public class UserCreateResonseDTO {
         this.email = email;
     }
 
-    public String getName() {
-        return Name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getError() {

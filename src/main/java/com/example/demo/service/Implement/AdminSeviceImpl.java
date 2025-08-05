@@ -1,5 +1,6 @@
 package com.example.demo.service.Implement;
 
+import com.example.demo.dto.response.UserResponDTO;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.User;
 import com.example.demo.repository.ProductRepository;
@@ -28,16 +29,22 @@ public class AdminSeviceImpl implements AdminService {
   }
 
   @Override
-    public User blockUser(int id) {
-      User user = userRepository.findById(id);
-      if(user == null){
-         return null;
+    public UserResponDTO blockUser(int id) {
+      UserResponDTO userResponDTO = new UserResponDTO();
+      int rowEffect  = userRepository.blockUserStatus(id);
+      if(rowEffect <= 0){
+          return null;
       }
+      User user =  userRepository.selectUserById(id);
+      userResponDTO.setID_USER(user.getID_USER());
+      userResponDTO.setEmail(user.getEmail());
+     userResponDTO.setFullname(user.getFullname());
+     userResponDTO.setRole(user.getRole());
+     userResponDTO.setStatus(user.getStatus());
 
-      user.setStatus("block");
-      userRepository.save(user);
-      return user;
+      return userResponDTO;
   }
+
 
   @Override
     public Product addProduct(Product product) {
