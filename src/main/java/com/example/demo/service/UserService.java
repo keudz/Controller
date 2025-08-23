@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.request.UserCreateRequestDTO;
 import com.example.demo.dto.request.UserLoginRequestDTO;
+import com.example.demo.dto.response.ProductResponseDTO;
 import com.example.demo.dto.response.UserCreateResponseDTO;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.User;
@@ -15,11 +16,11 @@ public interface UserService {
 
     UserCreateResponseDTO getUserById(int id);
 
-    List<Product> showallproduct();
+    List<ProductResponseDTO> showallproduct();
 
-    Object addProduct(UserLoginRequestDTO user,String nameProduct,int quantity);
+    Object addProductToCart(UserLoginRequestDTO user,String nameProduct,int quantity);
 
-    Object userCheckListProduct(String user);
+    Object userCheckListProduct(UserLoginRequestDTO user);
 
     Object userDeleteProduct(UserLoginRequestDTO user,String nameProduct);
 

@@ -1,17 +1,26 @@
 package com.example.demo.dto.request;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class UserCreateRequestDTO {
+    @NotBlank(message = "Email is invalid")//@NotBlank đảm bảo chỗi không chỉ chưa khoảng trắng;
+    @Size(min = 6, max = 50,message = "The email too short")
+    @Email(message = "EMAIL IS INVALID!!")
     private String email;
+    @NotBlank(message = "Password is invalid")
+    @Size(min = 6, max = 50,message = "")
     private String password;
+    @NotBlank(message = "Username is invalid")
+    @Size(min = 6, max = 50,message = "Username is invalid")
     private String fullname;
-    private String error;
 
 
-    public UserCreateRequestDTO(String email, String password, String fullname, String error) {
+    public UserCreateRequestDTO(String email, String password, String fullname) {
         this.email = email;
         this.password = password;
         this.fullname = fullname;
-        this.error = error;
 
 }
     public UserCreateRequestDTO() {}
@@ -40,11 +49,5 @@ public class UserCreateRequestDTO {
         this.fullname = fullname;
     }
 
-    public String getError() {
-        return error;
-    }
 
-    public void setError(String error) {
-        this.error = error;
-    }
 }

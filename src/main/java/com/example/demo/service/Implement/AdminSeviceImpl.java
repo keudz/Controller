@@ -1,14 +1,18 @@
 package com.example.demo.service.Implement;
 
+import com.example.demo.dto.request.Stringg;
+import com.example.demo.dto.response.ProductResponseDTO;
 import com.example.demo.dto.response.UserResponDTO;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.User;
+import com.example.demo.exception.ApiException;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,13 +33,14 @@ public class AdminSeviceImpl implements AdminService {
   }
 
   @Override
-    public UserResponDTO blockUser(int id) {
+    public UserResponDTO blockUser(Stringg name) {
       UserResponDTO userResponDTO = new UserResponDTO();
-      int rowEffect  = userRepository.blockUserStatus(id);
+      int rowEffect  = userRepository.blockUserStatus(name.getName());
       if(rowEffect <= 0){
-          return null;
+       throw new ApiException(404,"user not found");
+
       }
-      User user =  userRepository.selectUserById(id);
+      User user =  userRepository.selectUserByName(name.getName());
       userResponDTO.setID_USER(user.getID_USER());
       userResponDTO.setEmail(user.getEmail());
      userResponDTO.setFullname(user.getFullname());
@@ -83,7 +88,7 @@ public class AdminSeviceImpl implements AdminService {
     productRepository.save(newProduct);
     return newProduct;
        }
-   return null;
+     throw new ApiException(404,"product not found");
     }
 
 
@@ -99,8 +104,18 @@ public class AdminSeviceImpl implements AdminService {
     }
 
     @Override
-    public List<Product> showAllProduct() {
-      return productRepository.findAll();
+    public List<ProductResponseDTO> showAllProduct() {
+      List<Product> productOriginal = productRepository.findAll();
+      List<ProductResponseDTO> ListProductRespon = new ArrayList<>();
+      for(Product product : productOriginal){
+          ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+          productResponseDTO.setNameProduct(product.getName());
+          productResponseDTO.setPriceProduct(product.getPrice());
+          productResponseDTO.setQuantity(product.getStock());
+          productResponseDTO.setCategoryProduct(product.getCategory());
+          ListProductRespon.add(productResponseDTO);
+      }
+      return ListProductRespon;
     }
 }
 

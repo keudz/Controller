@@ -1,14 +1,16 @@
 package com.example.demo.dto.response;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class UserCreateResponseDTO {
     private String email;
     private String Name;
-    private String error;
 
-    public UserCreateResponseDTO(String email, String Name, String error) {
+
+    public UserCreateResponseDTO(String email, String Name) {
         this.email = email;
-        this.Name = Name;
-        this.error = error;
+        this.Name = Name;;
     }
 
     public UserCreateResponseDTO() {
@@ -29,13 +31,5 @@ public class UserCreateResponseDTO {
 
     public void setName(String name) {
         Name = name;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
     }
 }

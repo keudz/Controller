@@ -4,7 +4,7 @@ import com.example.demo.dto.request.UserCreateRequestDTO;
 import com.example.demo.dto.request.UserLoginRequestDTO;
 
 public interface UserValidateSevice {
-    String ValidateCheckLogin(UserLoginRequestDTO user);
+   int ValidateCheckLogin(UserLoginRequestDTO user);
 
-    String ValidateCheckCreate(UserCreateRequestDTO user);
+    int ValidateCheckCreate(UserCreateRequestDTO user);
 }

@@ -2,11 +2,13 @@ package com.example.demo.service.Implement;
 
 import com.example.demo.dto.request.UserCreateRequestDTO;
 import com.example.demo.dto.request.UserLoginRequestDTO;
+import com.example.demo.dto.response.ProductResponseDTO;
 import com.example.demo.dto.response.UserCreateResponseDTO;
-import com.example.demo.dto.response.UserListProductResponseDTO;
+import com.example.demo.dto.response.UserResponDTO;
 import com.example.demo.entity.Cart;
 import com.example.demo.entity.Cart_Iterm;
 import com.example.demo.entity.Product;
+import com.example.demo.exception.ApiException;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ProductRepository;
@@ -17,7 +19,6 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entity.User; // ✅ đường dẫn đúng của class bạn
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -36,18 +37,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserCreateResponseDTO createUser(UserCreateRequestDTO user) {
-        String error = userValidateServiceImpl.ValidateCheckCreate(user);
-        UserCreateResponseDTO userRes = new UserCreateResponseDTO();
-        if (error != null) {
-            userRes.setError(error);
-            return userRes;
-        }
-        User user1 = userRepository.findByFullname(user.getFullname());
-        if (user1 != null) {
-            UserCreateResponseDTO userRes1 = new UserCreateResponseDTO();
-            userRes1.setError("ten tai khoan nay da ton tai");
-            return userRes1;
-        }
+        User user1 = userRepository.selectUserByEmail(user.getEmail());
+            if(user1!=null){
+                throw new ApiException(400,"user already exists");
+            }
         User userCreate = new User();
         userCreate.setFullname(user.getFullname());
         userCreate.setPassword(user.getPassword());
@@ -55,61 +48,71 @@ public class UserServiceImpl implements UserService {
         userCreate.setRole("Costumer");
         userCreate.setStatus("Active");
         userRepository.save(userCreate);
-
-
+        UserCreateResponseDTO userRes = new UserCreateResponseDTO();
         userRes.setEmail(user.getEmail());
         userRes.setName(user.getFullname());
-        userRes.setError("đã tạo tài khoản thành công!!");
         return userRes;
     }
 
 
     @Override
     public Object login(UserLoginRequestDTO user) {
-        userValidateServiceImpl.ValidateCheckLogin(user);
-        if (user.getError() == null) {
-            User user1 = userRepository.selectUserByEmailAndPassWord(user.getEmail(), user.getPassword());
-            return "đăng nhập thành công!!!" + user1.getEmail() + user1.getFullname();
+        int error = userValidateServiceImpl.ValidateCheckLogin(user);
+        if (error == 1) {
+            throw new ApiException(400,"Field is mandatory");
         }
-
-        return user.getError();
-
+        if(error == 2 || error == 3){
+            throw new ApiException(400,"Password or email must be at least 8 character long");
+        }
+        return "Login Successful";
     }
 
     @Override
     public UserCreateResponseDTO getUserById(int id) {
+        if( id < 0  ){
+            throw new ApiException(400,"id is invalid");
+        }
         User user = userRepository.selectUserById(id);
+        if(user == null){
+            throw new ApiException(404,"user not found");
+        }
         UserCreateResponseDTO userRes = new UserCreateResponseDTO();
-        if (user != null) {
-            userRes.setName(user.getFullname());
-            userRes.setEmail(user.getEmail());
-            userRes.setError(null);
-            return userRes;
-
-        }
-        return null;
+        userRes.setEmail(user.getEmail());
+        userRes.setName(user.getFullname());
+        return userRes;
     }
 
 
     @Override
-    public List<Product> showallproduct() {
-        return productRepository.findAll();
+    public List<ProductResponseDTO> showallproduct() {
+        List<Product> productsOriginal = productRepository.findAll();
+        List<ProductResponseDTO> productRes = new ArrayList<>();
+        for (Product product : productsOriginal) {
+            ProductResponseDTO productResDTO = new ProductResponseDTO();
+            productResDTO.setNameProduct(product.getName());
+            productResDTO.setPriceProduct(product.getPrice());
+            productResDTO.setQuantity(product.getStock());
+            productResDTO.setCategoryProduct(product.getCategory());
+            productRes.add(productResDTO);
+        }
+        return productRes;
     }
 
     @Override
-    public Object addProduct(UserLoginRequestDTO user1, String nameProduct, int quantity) {
-        userValidateServiceImpl.ValidateCheckLogin(user1);
-        if (user1.getError() == null) {
-            return user1.getError();
+    public Object addProductToCart(UserLoginRequestDTO user1, String nameProduct, int quantity) {
+        int error =  userValidateServiceImpl.ValidateCheckLogin(user1);
+        if (error == 1) {
+            throw new  ApiException(400,"Field is mandatory");
         }
+
         User user = userRepository.selectUserByEmailAndPassWord(user1.getEmail(), user1.getPassword());
-
-        if (user == null) {
-            return "khong cos user nay!!!!!";
+        if(user == null){
+            throw new ApiException(400,"Password or email is invalid");
         }
+
         Product product = productRepository.findByName(nameProduct);
         if (product == null) {
-            return "không tìm thấy sản phẩm: " + nameProduct;
+            throw new ApiException(404,"product not found");
         }
         Cart cart = user.getCart();
         Cart_Iterm cart_Iterm = new Cart_Iterm();
@@ -126,32 +129,40 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object userCheckListProduct(String email) {
+    public Object userCheckListProduct(UserLoginRequestDTO user) {
 
-        User user1 = userRepository.selectUserByEmail(email);
+        User user1 = userRepository.selectUserByEmailAndPassWord(user.getEmail(), user.getPassword());
         if (user1 == null) {
-            return "user not found!!!";
+            throw new ApiException(404,"user not found");
         }
+        List<ProductResponseDTO> productResponseDTOList = new ArrayList<>();
         Cart cart = user1.getCart();
-        UserListProductResponseDTO userRes = new UserListProductResponseDTO();
-        userRes.setItermList(cart.getCartItermList());
-        return userRes.getItermList();
-
+        List<Cart_Iterm> cart_ItermList = cart.getCartItermList();
+        for (Cart_Iterm cart_iterm : cart_ItermList) {
+            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+            productResponseDTO.setNameProduct(cart_iterm.getProduct().getName());
+            productResponseDTO.setDescriptionProduct(cart_iterm.getProduct().getDescription());
+            productResponseDTO.setPriceProduct(cart_iterm.getProduct().getPrice());
+            productResponseDTO.setCategoryProduct(cart_iterm.getProduct().getCategory());
+            productResponseDTO.setQuantity(cart_iterm.getQUANTITY());
+            productResponseDTOList.add(productResponseDTO);
+        }
+        return productResponseDTOList;
     }
 
     @Override
     public Object userDeleteProduct(UserLoginRequestDTO user, String nameProduct) {
-        userValidateServiceImpl.ValidateCheckLogin(user);
-        if (user.getError() == null) {
-            return user.getError();
+       int error = userValidateServiceImpl.ValidateCheckLogin(user);
+        if (error == 1) {
+            throw new  ApiException(400,"Field is mandatory");
         }
         User user1 = userRepository.selectUserByEmailAndPassWord(user.getEmail(), user.getPassword());
         if (user1 == null) {
-            return " khong co user nay!!!";
+           throw new ApiException(404,"user not found");
         }
         Cart cart = user1.getCart();
         if (cart == null || cart.getCartItermList().isEmpty()) {
-            return " user nay chua them san pham nao vao gio hang!!!";
+           throw new ApiException(200,"cart is empty");
         }
         userRepository.deleteProductByName(nameProduct, cart.getID_CART());
         return "da xoa thanh cong san pham " + nameProduct + "ra khoi gio hang!!";

@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.request.Stringg;
+import com.example.demo.dto.response.ProductResponseDTO;
 import com.example.demo.dto.response.UserResponDTO;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.User;
@@ -9,7 +11,7 @@ import java.util.List;
 public interface AdminService {
   List<User> showAllUser();
 
-  UserResponDTO blockUser(int id);
+  UserResponDTO blockUser(Stringg id);
 
   Product addProduct(Product product  );
 
@@ -17,6 +19,6 @@ public interface AdminService {
 
     Product deleteProduct(int id);
 
-    List<Product> showAllProduct();
+    List<ProductResponseDTO> showAllProduct();
 }
 
