@@ -5,10 +5,7 @@ USE shoppingonline;
 #Bài 18
 -- Truy vấn tạo bảng user
 create table Users(
-    id INT UNIQUE AUTO_INCREMENT PRIMARY KEY,
-    email varchar(255) unique not null,
-    password varchar(500) not null,
-    fullname varchar(500) not null
+    id INT UNIQxnot null
 
 );
 Drop table Users ;
